@@ -1,0 +1,5 @@
+tags
+*.o
+bfdb
+*.un~
+*.swp
