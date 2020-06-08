@@ -98,7 +98,7 @@ enum exec_end exec(struct instructions* instr, struct exec_state* es) {
                 break;
 
             case '.':
-                printf("%c\n", es->tape[es->data_ptr]);
+                printf("%c", es->tape[es->data_ptr]);
                 es->inst_ptr++;
                 break;
 
@@ -164,7 +164,7 @@ enum exec_end exec(struct instructions* instr, struct exec_state* es) {
 
         // successfull termination
         if (instr->instr_count == es->inst_ptr) {
-            printf("Program terminated successfully.\n");
+            printf("\nProgram terminated successfully.\n");
             return VALID;
         }
 
