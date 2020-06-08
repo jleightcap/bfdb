@@ -103,7 +103,7 @@ enum exec_end exec(struct instructions* instr, struct exec_state* es) {
                 break;
 
             case ',':
-                scanf(" %c", &c);
+                if(!scanf(" %c", &c)) exit(-1);
                 es->tape[es->data_ptr] = c;
                 es->inst_ptr++;
                 break;

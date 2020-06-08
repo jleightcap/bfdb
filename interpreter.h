@@ -10,7 +10,7 @@ struct instructions {
     FILE* fd; // stored to later free
     int instr_count;
     char* instr;
-} instrucitons;
+};
 
 // instruction initialization
 void instr_init(char* path, struct instructions *parse);
@@ -32,7 +32,7 @@ struct exec_state {
     int  cycle;       // current cycle
     int  data_extent; // highest data cell used
     enum exec_end ee;
-} exec_state;
+};
 
 
 void exec_init(struct exec_state* es);

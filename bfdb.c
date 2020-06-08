@@ -29,12 +29,11 @@ int main(int argc, char** argv) {
 
     char user_input[MAX_USER_INPUT];
 
-    while(1) {
+    for(;;) {
+        // prompt message
         printf("\033[1m\033[32m(bfdb)\033[m ");
-        scanf("%s", user_input);
 
-        if (strcmp(user_input, "quit") == 0)
-            return 0;
+        if(!scanf("%s", user_input)) return -1;
 
         // run until breakpoint or until program returns valid
         if (strcmp(user_input, "run")  == 0) {
@@ -42,6 +41,10 @@ int main(int argc, char** argv) {
             es.ee = exec(&instr, &es);
             continue;
         }
+
+        if (strcmp(user_input, "quit") == 0)
+            return 0;
+
 
         // reset execution state
         if (strcmp(user_input, "reset") == 0) {
@@ -53,7 +56,7 @@ int main(int argc, char** argv) {
         if (strcmp(user_input, "b") == 0) {
             int nn = num_digits(instr.instr_count);
             char bp[nn - 1];
-            scanf("%s", bp);
+            if(!scanf("%s", bp)) return -1;
             int bp_ptr = atoi(bp);
             if (bp_ptr < 0 || bp_ptr > instr.instr_count)
                 printf("Invalid instruction number %d\n", bp_ptr);
@@ -66,7 +69,7 @@ int main(int argc, char** argv) {
         if (strcmp(user_input, "p") == 0) {
             int nn = num_digits(TAPE_LENGTH);
             char ii[nn - 1];
-            scanf("%s", ii);
+            if(!scanf("%s", ii)) return -1;
             int tape_ptr = atoi(ii);
             if (tape_ptr < 0 || tape_ptr >= TAPE_LENGTH)
                 printf("Invalid tape index %d\n", tape_ptr);
@@ -101,6 +104,19 @@ int main(int argc, char** argv) {
 
             fclose(fd);
             printf("Tape dumped to data.dat.\n");
+            continue;
+        }
+
+        if (strcmp(user_input, "help") == 0) {
+            printf("Available commands:\n");
+            printf("\trun: run program until termination or breakpoint\n");
+            printf("\tquit: quit and clean up\n");
+            printf("\treset: reset tape and program state\n");
+            printf("\tb [n]: pause instruction at instruction n\n");
+            printf("\tp [n]: print the value of tape[n]\n");
+            printf("\ts: step one instruction forward, printing value at tape head and instruction pointer\n");
+            printf("\tdump: dump state of tape to dump.dat\n");
+            printf("\thelp: print this help message\n");
             continue;
         }
 
